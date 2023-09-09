@@ -26,6 +26,8 @@ import { UserCountArgs } from "./UserCountArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { StrategyFindManyArgs } from "../../strategy/base/StrategyFindManyArgs";
+import { Strategy } from "../../strategy/base/Strategy";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -130,5 +132,25 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Strategy], { name: "strategy" })
+  @nestAccessControl.UseRoles({
+    resource: "Strategy",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldStrategy(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: StrategyFindManyArgs
+  ): Promise<Strategy[]> {
+    const results = await this.service.findStrategy(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

@@ -1,11 +1,15 @@
+import { Strategy } from "../strategy/Strategy";
 import { JsonValue } from "type-fest";
 
 export type User = {
   createdAt: Date;
-  firstName: string | null;
-  id: string;
-  lastName: string | null;
-  roles: JsonValue;
+  email: string;
+  firstname: string | null;
+  id: number;
+  lastname: string | null;
+  role?: "ADMIN" | "USER";
+  strategy?: Array<Strategy>;
   updatedAt: Date;
   username: string;
+  roles: JsonValue;
 };

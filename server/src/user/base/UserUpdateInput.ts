@@ -11,7 +11,10 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional } from "class-validator";
+import { IsString, IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { EnumUserRole } from "./EnumUserRole";
+import { StrategyUpdateManyWithoutUsersInput } from "./StrategyUpdateManyWithoutUsersInput";
+import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -27,7 +30,7 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  firstName?: string | null;
+  email?: string;
 
   @ApiProperty({
     required: false,
@@ -38,7 +41,52 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  lastName?: string | null;
+  firstname?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  lastname?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumUserRole,
+  })
+  @IsEnum(EnumUserRole)
+  @IsOptional()
+  @Field(() => EnumUserRole, {
+    nullable: true,
+  })
+  role?: "ADMIN" | "USER";
+
+  @ApiProperty({
+    required: false,
+    type: () => StrategyUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => StrategyUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => StrategyUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  strategy?: StrategyUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  username?: string;
 
   @ApiProperty({
     required: false,
@@ -60,17 +108,6 @@ class UserUpdateInput {
     nullable: true,
   })
   roles?: InputJsonValue;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  username?: string;
 }
 
 export { UserUpdateInput as UserUpdateInput };

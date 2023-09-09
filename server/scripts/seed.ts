@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { customSeed } from "./customSeed";
 import { Salt, parseSalt } from "../src/auth/password.service";
 import { hash } from "bcrypt";
+import { EnumUserRole } from "../src/user/base/EnumUserRole";
 
 if (require.main === module) {
   dotenv.config();
@@ -29,6 +30,8 @@ async function seed(bcryptSalt: Salt) {
     username: "admin",
     password: await hash("admin", bcryptSalt),
     roles: ["user"],
+    email: "",
+    role: EnumUserRole.Admin,
   };
 
   await client.user.upsert({

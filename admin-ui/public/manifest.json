@@ -1,6 +1,6 @@
 {
-  "short_name": "Sample service",
-  "name": "Sample service",
+  "short_name": "TikStock",
+  "name": "TikStock",
   "icons": [
     {
       "src": "favicon.ico",

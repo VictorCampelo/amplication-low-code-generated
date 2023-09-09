@@ -20,41 +20,45 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
-  id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
+  email: "exampleEmail",
+  firstname: "exampleFirstname",
+  id: 42,
+  lastname: "exampleLastname",
   updatedAt: new Date(),
   username: "exampleUsername",
+  password: "examplePassword",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
-  id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
+  email: "exampleEmail",
+  firstname: "exampleFirstname",
+  id: 42,
+  lastname: "exampleLastname",
   updatedAt: new Date(),
   username: "exampleUsername",
+  password: "examplePassword",
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    firstName: "exampleFirstName",
-    id: "exampleId",
-    lastName: "exampleLastName",
-    password: "examplePassword",
+    email: "exampleEmail",
+    firstname: "exampleFirstname",
+    id: 42,
+    lastname: "exampleLastname",
     updatedAt: new Date(),
     username: "exampleUsername",
+    password: "examplePassword",
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  firstName: "exampleFirstName",
-  id: "exampleId",
-  lastName: "exampleLastName",
-  password: "examplePassword",
+  email: "exampleEmail",
+  firstname: "exampleFirstname",
+  id: 42,
+  lastname: "exampleLastname",
   updatedAt: new Date(),
   username: "exampleUsername",
+  password: "examplePassword",
 };
 
 const service = {

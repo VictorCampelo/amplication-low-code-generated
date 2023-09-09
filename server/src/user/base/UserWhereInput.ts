@@ -11,23 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { EnumUserRole } from "./EnumUserRole";
+import { StrategyListRelationFilter } from "../../strategy/base/StrategyListRelationFilter";
 
 @InputType()
 class UserWhereInput {
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: DateTimeFilter,
   })
-  @Type(() => StringNullableFilter)
+  @Type(() => DateTimeFilter)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => DateTimeFilter, {
     nullable: true,
   })
-  firstName?: StringNullableFilter;
+  createdAt?: DateTimeFilter;
 
   @ApiProperty({
     required: false,
@@ -38,7 +42,7 @@ class UserWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
-  id?: StringFilter;
+  email?: StringFilter;
 
   @ApiProperty({
     required: false,
@@ -49,18 +53,63 @@ class UserWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  lastName?: StringNullableFilter;
+  firstname?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: IntFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  username?: StringFilter;
+  id?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  lastname?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumUserRole,
+  })
+  @IsEnum(EnumUserRole)
+  @IsOptional()
+  @Field(() => EnumUserRole, {
+    nullable: true,
+  })
+  role?: "ADMIN" | "USER";
+
+  @ApiProperty({
+    required: false,
+    type: () => StrategyListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StrategyListRelationFilter)
+  @IsOptional()
+  @Field(() => StrategyListRelationFilter, {
+    nullable: true,
+  })
+  strategy?: StrategyListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeFilter,
+  })
+  @Type(() => DateTimeFilter)
+  @IsOptional()
+  @Field(() => DateTimeFilter, {
+    nullable: true,
+  })
+  updatedAt?: DateTimeFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

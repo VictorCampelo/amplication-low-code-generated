@@ -8,60 +8,101 @@ generator client {
 }
 
 model User {
-  createdAt DateTime @default(now())
-  firstName String?
-  id        String   @id @default(cuid())
-  lastName  String?
+  createdAt DateTime     @default(now())
+  email     String       @unique
+  firstname String?
+  id        Int          @id @default(autoincrement())
+  lastname  String?
+  role      EnumUserRole
+  strategy  Strategy[]
+  updatedAt DateTime     @updatedAt
+  username  String       @unique
   password  String
   roles     Json
-  updatedAt DateTime @updatedAt
-  username  String   @unique
 }
 
-model Order {
-  createdAt  DateTime  @default(now())
-  customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?
-  discount   Float?
-  id         String    @id @default(cuid())
-  product    Product?  @relation(fields: [productId], references: [id])
-  productId  String?
-  quantity   Int?
-  totalPrice Int?
-  updatedAt  DateTime  @updatedAt
-}
-
-model Customer {
-  address   Address? @relation(fields: [addressId], references: [id])
-  addressId String?
+model StockFundamental {
+  c5y       Float    @default(0)
+  cotacao   Float    @default(0)
   createdAt DateTime @default(now())
-  email     String?
-  firstName String?
-  id        String   @id @default(cuid())
-  lastName  String?
-  orders    Order[]
-  phone     String?
-  updatedAt DateTime @updatedAt
+  divbpatr  Float    @default(0)
+  dy        Float    @default(0)
+  evebit    Float    @default(0)
+  evebitda  Float    @default(0)
+  id        Int      @id @default(autoincrement())
+  liq2m     Float    @default(0)
+  liqc      Float    @default(0)
+  mrgebit   Float    @default(0)
+  mrgliq    Float    @default(0)
+  pa        Float    @default(0)
+  pacl      Float    @default(0)
+  papel     String?  @unique
+  patrliq   Float    @default(0)
+  pcg       Float    @default(0)
+  pebit     Float    @default(0)
+  pl        Float    @default(0)
+  psr       Float    @default(0)
+  pvp       Float    @default(0)
+  roe       Float    @default(0)
+  roic      Float    @default(0)
+  updatedAt DateTime @default(now())
+
+  @@map("StockFundamentals")
 }
 
-model Address {
-  address_1 String?
-  address_2 String?
-  city      String?
-  createdAt DateTime   @default(now())
-  customers Customer[]
-  id        String     @id @default(cuid())
-  state     String?
-  updatedAt DateTime   @updatedAt
-  zip       Int?
+model StockFundamentalsHistory {
+  c5y       Float    @default(0)
+  cotacao   Float    @default(0)
+  createdAt DateTime @default(now())
+  divbpatr  Float    @default(0)
+  dy        Float    @default(0)
+  evebit    Float    @default(0)
+  evebitda  Float    @default(0)
+  id        Int      @id @default(autoincrement())
+  liq2m     Float    @default(0)
+  liqc      Float    @default(0)
+  mrgebit   Float    @default(0)
+  mrgliq    Float    @default(0)
+  pa        Float    @default(0)
+  pacl      Float    @default(0)
+  papel     String?  @unique
+  patrliq   Float    @default(0)
+  pcg       Float    @default(0)
+  pebit     Float    @default(0)
+  pl        Float    @default(0)
+  psr       Float    @default(0)
+  pvp       Float    @default(0)
+  roe       Float    @default(0)
+  roic      Float    @default(0)
+  updatedAt DateTime @default(now())
 }
 
-model Product {
+model Strategy {
+  author      User?    @relation(fields: [authorId], references: [id])
+  authorId    Int?
   createdAt   DateTime @default(now())
-  description String?
-  id          String   @id @default(cuid())
-  itemPrice   Float?
-  name        String?
-  orders      Order[]
-  updatedAt   DateTime @updatedAt
+  description String
+  filterBy    Json?
+  id          Int      @id @default(autoincrement())
+  orderBy     Json?
+  promoted    Boolean  @default(false)
+  title       String   @unique
+  updatedAt   DateTime @default(now())
+}
+
+model StockField {
+  createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  sector    String
+  segment   String
+  subsector String
+  ticker    String?  @unique
+  updatedAt DateTime @default(now())
+
+  @@map("StockFields")
+}
+
+enum EnumUserRole {
+  ADMIN
+  USER
 }

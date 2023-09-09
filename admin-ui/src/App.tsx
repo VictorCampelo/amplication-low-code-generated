@@ -9,22 +9,22 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
-import { OrderList } from "./order/OrderList";
-import { OrderCreate } from "./order/OrderCreate";
-import { OrderEdit } from "./order/OrderEdit";
-import { OrderShow } from "./order/OrderShow";
-import { CustomerList } from "./customer/CustomerList";
-import { CustomerCreate } from "./customer/CustomerCreate";
-import { CustomerEdit } from "./customer/CustomerEdit";
-import { CustomerShow } from "./customer/CustomerShow";
-import { AddressList } from "./address/AddressList";
-import { AddressCreate } from "./address/AddressCreate";
-import { AddressEdit } from "./address/AddressEdit";
-import { AddressShow } from "./address/AddressShow";
-import { ProductList } from "./product/ProductList";
-import { ProductCreate } from "./product/ProductCreate";
-import { ProductEdit } from "./product/ProductEdit";
-import { ProductShow } from "./product/ProductShow";
+import { StockFundamentalList } from "./stockFundamental/StockFundamentalList";
+import { StockFundamentalCreate } from "./stockFundamental/StockFundamentalCreate";
+import { StockFundamentalEdit } from "./stockFundamental/StockFundamentalEdit";
+import { StockFundamentalShow } from "./stockFundamental/StockFundamentalShow";
+import { StockFundamentalsHistoryList } from "./stockFundamentalsHistory/StockFundamentalsHistoryList";
+import { StockFundamentalsHistoryCreate } from "./stockFundamentalsHistory/StockFundamentalsHistoryCreate";
+import { StockFundamentalsHistoryEdit } from "./stockFundamentalsHistory/StockFundamentalsHistoryEdit";
+import { StockFundamentalsHistoryShow } from "./stockFundamentalsHistory/StockFundamentalsHistoryShow";
+import { StrategyList } from "./strategy/StrategyList";
+import { StrategyCreate } from "./strategy/StrategyCreate";
+import { StrategyEdit } from "./strategy/StrategyEdit";
+import { StrategyShow } from "./strategy/StrategyShow";
+import { StockFieldList } from "./stockField/StockFieldList";
+import { StockFieldCreate } from "./stockField/StockFieldCreate";
+import { StockFieldEdit } from "./stockField/StockFieldEdit";
+import { StockFieldShow } from "./stockField/StockFieldShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -44,7 +44,7 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Admin
-        title={"Sample service"}
+        title={"TikStock"}
         dataProvider={dataProvider}
         authProvider={jwtAuthProvider}
         theme={theme}
@@ -59,32 +59,32 @@ const App = (): React.ReactElement => {
           show={UserShow}
         />
         <Resource
-          name="Order"
-          list={OrderList}
-          edit={OrderEdit}
-          create={OrderCreate}
-          show={OrderShow}
+          name="StockFundamental"
+          list={StockFundamentalList}
+          edit={StockFundamentalEdit}
+          create={StockFundamentalCreate}
+          show={StockFundamentalShow}
         />
         <Resource
-          name="Customer"
-          list={CustomerList}
-          edit={CustomerEdit}
-          create={CustomerCreate}
-          show={CustomerShow}
+          name="StockFundamentalsHistory"
+          list={StockFundamentalsHistoryList}
+          edit={StockFundamentalsHistoryEdit}
+          create={StockFundamentalsHistoryCreate}
+          show={StockFundamentalsHistoryShow}
         />
         <Resource
-          name="Address"
-          list={AddressList}
-          edit={AddressEdit}
-          create={AddressCreate}
-          show={AddressShow}
+          name="Strategy"
+          list={StrategyList}
+          edit={StrategyEdit}
+          create={StrategyCreate}
+          show={StrategyShow}
         />
         <Resource
-          name="Product"
-          list={ProductList}
-          edit={ProductEdit}
-          create={ProductCreate}
-          show={ProductShow}
+          name="StockField"
+          list={StockFieldList}
+          edit={StockFieldEdit}
+          create={StockFieldCreate}
+          show={StockFieldShow}
         />
       </Admin>
     </div>

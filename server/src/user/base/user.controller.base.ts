@@ -27,6 +27,9 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
+import { StrategyFindManyArgs } from "../../strategy/base/StrategyFindManyArgs";
+import { Strategy } from "../../strategy/base/Strategy";
+import { StrategyWhereUniqueInput } from "../../strategy/base/StrategyWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -38,6 +41,9 @@ export class UserControllerBase {
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
   @swagger.ApiCreatedResponse({ type: User })
+  @swagger.ApiBody({
+    type: UserCreateInput,
+  })
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "create",
@@ -51,12 +57,14 @@ export class UserControllerBase {
       data: data,
       select: {
         createdAt: true,
-        firstName: true,
+        email: true,
+        firstname: true,
         id: true,
-        lastName: true,
-        roles: true,
+        lastname: true,
+        role: true,
         updatedAt: true,
         username: true,
+        roles: true,
       },
     });
   }
@@ -79,12 +87,14 @@ export class UserControllerBase {
       ...args,
       select: {
         createdAt: true,
-        firstName: true,
+        email: true,
+        firstname: true,
         id: true,
-        lastName: true,
-        roles: true,
+        lastname: true,
+        role: true,
         updatedAt: true,
         username: true,
+        roles: true,
       },
     });
   }
@@ -108,12 +118,14 @@ export class UserControllerBase {
       where: params,
       select: {
         createdAt: true,
-        firstName: true,
+        email: true,
+        firstname: true,
         id: true,
-        lastName: true,
-        roles: true,
+        lastname: true,
+        role: true,
         updatedAt: true,
         username: true,
+        roles: true,
       },
     });
     if (result === null) {
@@ -128,6 +140,9 @@ export class UserControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: User })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiBody({
+    type: UserUpdateInput,
+  })
   @nestAccessControl.UseRoles({
     resource: "User",
     action: "update",
@@ -146,12 +161,14 @@ export class UserControllerBase {
         data: data,
         select: {
           createdAt: true,
-          firstName: true,
+          email: true,
+          firstname: true,
           id: true,
-          lastName: true,
-          roles: true,
+          lastname: true,
+          role: true,
           updatedAt: true,
           username: true,
+          roles: true,
         },
       });
     } catch (error) {
@@ -183,12 +200,14 @@ export class UserControllerBase {
         where: params,
         select: {
           createdAt: true,
-          firstName: true,
+          email: true,
+          firstname: true,
           id: true,
-          lastName: true,
-          roles: true,
+          lastname: true,
+          role: true,
           updatedAt: true,
           username: true,
+          roles: true,
         },
       });
     } catch (error) {
@@ -199,5 +218,111 @@ export class UserControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/strategy")
+  @ApiNestedQuery(StrategyFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Strategy",
+    action: "read",
+    possession: "any",
+  })
+  async findManyStrategy(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Strategy[]> {
+    const query = plainToClass(StrategyFindManyArgs, request.query);
+    const results = await this.service.findStrategy(params.id, {
+      ...query,
+      select: {
+        author: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        description: true,
+        filterBy: true,
+        id: true,
+        orderBy: true,
+        promoted: true,
+        title: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/strategy")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectStrategy(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StrategyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      strategy: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/strategy")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateStrategy(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StrategyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      strategy: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/strategy")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectStrategy(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StrategyWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      strategy: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }
