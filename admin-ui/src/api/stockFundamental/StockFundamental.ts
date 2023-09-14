@@ -1,0 +1,26 @@
+export type StockFundamental = {
+  c5y: number;
+  cotacao: number;
+  createdAt: Date;
+  divbpatr: number;
+  dy: number;
+  evebit: number;
+  evebitda: number;
+  id: number;
+  liq2m: number;
+  liqc: number;
+  mrgebit: number;
+  mrgliq: number;
+  pa: number;
+  pacl: number;
+  papel: string | null;
+  patrliq: number;
+  pcg: number;
+  pebit: number;
+  pl: number;
+  psr: number;
+  pvp: number;
+  roe: number;
+  roic: number;
+  updatedAt: Date;
+};

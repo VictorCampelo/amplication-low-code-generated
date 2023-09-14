@@ -1,0 +1,31 @@
+import { FloatFilter } from "../../util/FloatFilter";
+import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { IntFilter } from "../../util/IntFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+
+export type StockFundamentalsHistoryWhereInput = {
+  c5y?: FloatFilter;
+  cotacao?: FloatFilter;
+  createdAt?: DateTimeFilter;
+  divbpatr?: FloatFilter;
+  dy?: FloatFilter;
+  evebit?: FloatFilter;
+  evebitda?: FloatFilter;
+  id?: IntFilter;
+  liq2m?: FloatFilter;
+  liqc?: FloatFilter;
+  mrgebit?: FloatFilter;
+  mrgliq?: FloatFilter;
+  pa?: FloatFilter;
+  pacl?: FloatFilter;
+  papel?: StringNullableFilter;
+  patrliq?: FloatFilter;
+  pcg?: FloatFilter;
+  pebit?: FloatFilter;
+  pl?: FloatFilter;
+  psr?: FloatFilter;
+  pvp?: FloatFilter;
+  roe?: FloatFilter;
+  roic?: FloatFilter;
+  updatedAt?: DateTimeFilter;
+};
