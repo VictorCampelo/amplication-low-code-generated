@@ -1,10 +1,10 @@
-# TikStork Low-Code Project
+# TikStok Low-Code Project
 
-This is a version of the TikStork project, but it has been created using a low-code platform. The original TikStork project's Prisma schema has been reused for comparison purposes.
+This is a version of the TikStok project, but it has been created using a low-code platform. The original TikStok project's Prisma schema has been reused for comparison purposes.
 
 ## Introduction
 
-This repository contains a TikStork application that has been generated using a low-code platform. The core data schema from the original TikStork project has been utilized, allowing for a direct comparison between the two implementations.
+This repository contains a TikStok application that has been generated using a low-code platform. The core data schema from the original TikStok project has been utilized, allowing for a direct comparison between the two implementations.
 
 ## Getting Started
 
